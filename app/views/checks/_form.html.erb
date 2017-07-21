@@ -1,0 +1,21 @@
+<%= form_for(check) do |f| %>
+  <% if check.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(check.errors.count, "error") %> prohibited this check from being saved:</h2>
+
+      <ul>
+      <% check.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit 'Check Balance' %>
+  </div>
+
+  <div class="field">
+    <%= f.text_area :addresses, cols: "100", rows: "25", value: '098a0adb1f11862757215c6b200ec28190ed8256ae26bb7c79713004d00adf6d929306354543' %>
+  </div>
+<% end %>
