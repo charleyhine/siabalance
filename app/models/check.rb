@@ -8,6 +8,7 @@ class Check
     balance = 0.0
     addresses = self.addresses.split("\r\n")
     addresses.each { |address| balance += address_balance(address) }
+    balance
   end
 
   private
@@ -31,6 +32,7 @@ class Check
               balance += value_to_d(out['value']) if out['unlockhash'] == address
             end
           end
+
         end
       end
 
