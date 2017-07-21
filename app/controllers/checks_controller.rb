@@ -27,8 +27,8 @@ class ChecksController < ApplicationController
     @check = Check.new(check_params)
 
     respond_to do |format|
-      if @check.balance
-        format.html { render :show }
+      if @balance = @check.balance
+        format.html { render :new }
         format.json { render :show, status: :created, location: @check }
       else
         format.html { render :new }

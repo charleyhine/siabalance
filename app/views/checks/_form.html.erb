@@ -12,10 +12,14 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit 'Check Balance' %>
+    <% if @balance %>
+      <b>Balance: <%= number_with_delimiter(@balance) %> SC</b> (<%= link_to 'clear', new_check_path %>)
+    <% else %>
+      (one address per line) <%= f.submit 'Check Balance' %>
+    <% end %>
   </div>
 
   <div class="field">
-    <%= f.text_area :addresses, cols: "100", rows: "25" %>
+    <%= f.text_area :addresses, cols: "88", rows: "25" %>
   </div>
 <% end %>
