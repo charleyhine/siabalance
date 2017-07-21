@@ -6,9 +6,12 @@ class Check
 
   def balance
     balance = 0.0
-    addresses = self.addresses.split("\r\n")
-    addresses.each { |address| balance += address_balance(address) }
+    addresses_to_a.each { |address| balance += address_balance(address) }
     balance
+  end
+
+  def addresses_to_a
+    self.addresses.include?(",") ? self.addresses.split(",") : self.addresses.split("\r\n")
   end
 
   private

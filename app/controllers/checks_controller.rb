@@ -1,5 +1,4 @@
 class ChecksController < ApplicationController
-  before_action :set_check, only: [:show, :edit, :update, :destroy]
 
   # GET /checks
   # GET /checks.json
@@ -10,6 +9,12 @@ class ChecksController < ApplicationController
   # GET /checks/1
   # GET /checks/1.json
   def show
+    @check = Check.new(addresses: params[:addresses])
+    @balance = @check.balance
+
+    respond_to do |format|
+      format.json { render :show, status: :created, location: @check }
+    end
   end
 
   # GET /checks/new
@@ -25,15 +30,10 @@ class ChecksController < ApplicationController
   # POST /checks.json
   def create
     @check = Check.new(check_params)
+    @balance = @check.balance
 
     respond_to do |format|
-      if @balance = @check.balance
-        format.html { render :new }
-        format.json { render :show, status: :created, location: @check }
-      else
-        format.html { render :new }
-        format.json { render json: @check.errors, status: :unprocessable_entity }
-      end
+      format.html { render :new }
     end
   end
 
@@ -62,10 +62,6 @@ class ChecksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_check
-      @check = Check.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def check_params

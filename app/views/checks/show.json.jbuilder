@@ -1,1 +1,3 @@
-json.partial! "checks/check", check: @check
+if @balance
+  json.partial! "checks/check", balance: @balance
+end
