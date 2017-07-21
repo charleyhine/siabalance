@@ -1,22 +1,21 @@
-class Check < ApplicationRecord
+class Check
   include ActiveModel::Model
 
   attr_accessor :addresses
   validates_presence_of :addresses
 
   def balance
-    addresses = self.addresses.split("\r\n")
     balance = 0.0
+    addresses = self.addresses.split("\r\n")
     addresses.each { |address| balance += address_balance(address) }
-    balance
   end
 
   private
 
     def address_balance(address)
+      balance = 0.0
       resp = HTTParty.get("http://explore.sia.tech/explorer/hashes/#{address}")
       body = JSON.parse(resp.body)
-      balance = 0.0
 
       if txs = body['transactions']
         txs.each do |tx|
