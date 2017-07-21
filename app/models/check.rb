@@ -1,4 +1,8 @@
 class Check < ApplicationRecord
+  include ActiveModel::Model
+
+  attr_accessor :addresses
+  validates_presence_of :addresses
 
   def balance
     addresses = self.addresses.split("\r\n")
